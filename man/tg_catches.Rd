@@ -4,7 +4,7 @@
 \alias{tg_catches}
 \title{Catches}
 \usage{
-tg_catches()
+tg_catches(species = "mackerel")
 }
 \value{
 A dataframe

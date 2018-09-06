@@ -4,7 +4,7 @@
 \alias{tg_catches_bio}
 \title{Catches biology}
 \usage{
-tg_catches_bio()
+tg_catches_bio(species = c("mackerel"))
 }
 \value{
 A dataframe

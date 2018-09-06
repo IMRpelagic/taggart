@@ -3,7 +3,7 @@
 #' @return A dataframe
 #' @export
 #'
-tg_catches <- function() {
+tg_catches <- function(species = "mackerel") {
   jsonlite::fromJSON("http://smartfishsvc.hi.no/api/data/Catches/mackerel") %>%
     dplyr::as_tibble() %>%
     dplyr::select_all(tolower) %>%
@@ -11,5 +11,6 @@ tg_catches <- function() {
                   lon = geo::ir2d(ices_rectangle)$lon,
                   lat = geo::ir2d(ices_rectangle)$lat,
                   lonp = geo::ir2d(plant_ices_rectangle)$lon,
-                  latp = geo::ir2d(plant_ices_rectangle)$lat)
+                  latp = geo::ir2d(plant_ices_rectangle)$lat,
+                  fish = species[1])
 }

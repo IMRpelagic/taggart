@@ -4,7 +4,10 @@
 \alias{tg_expeditions_bio}
 \title{Expeditions biology}
 \usage{
-tg_expeditions_bio()
+tg_expeditions_bio(species = c("mackerel", "herring"))
+}
+\arguments{
+\item{species}{"mackerel", "herring" or both (default)}
 }
 \value{
 A dataframe
