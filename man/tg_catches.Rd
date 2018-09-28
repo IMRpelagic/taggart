@@ -4,7 +4,13 @@
 \alias{tg_catches}
 \title{Catches}
 \usage{
-tg_catches(species = "mackerel")
+tg_catches(species = "mackerel", cn.standardized = FALSE)
+}
+\arguments{
+\item{species}{"mackerel" or "herring"}
+
+\item{cn.standardized}{Boolean, if FALSE (default) retains variable names as
+delivered by the webserver otherwise mri-standaridzed variable names are used}
 }
 \value{
 A dataframe

@@ -1,0 +1,30 @@
+---
+title: "taggart"
+output: 
+  html_document: 
+    keep_md: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+For now just a test.
+
+Do:
+```{r, eval = FALSE}
+devtools::install_github("fishvice/taggart", dependencies = FALSE)
+```
+
+Load library:
+```{r, message = FALSE}
+library(taggart)
+```
+
+Get the data and have a peek
+```{r}
+tg_catches()         %>% glimpse()
+tg_catches_bio()     %>% glimpse()
+tg_expeditions()     %>% glimpse()
+tg_expeditions_bio() %>% glimpse()
+```

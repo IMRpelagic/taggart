@@ -4,10 +4,13 @@
 \alias{tg_expeditions}
 \title{Expeditions}
 \usage{
-tg_expeditions(species = c("mackerel", "herring"))
+tg_expeditions(species = "mackerel", cn.standardized = FALSE)
 }
 \arguments{
-\item{species}{"mackerel", "herring" or both (default)}
+\item{species}{"mackerel" or "herring"}
+
+\item{cn.standardized}{Boolean, if FALSE (default) retains variable names as
+delivered by the webserver otherwise mri-standaridzed variable names are used}
 }
 \value{
 A dataframe
