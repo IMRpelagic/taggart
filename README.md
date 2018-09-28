@@ -1,11 +1,4 @@
----
-title: "taggart"
-output: 
-  html_document: 
-    keep_md: yes
----
-
-
+# taggart
 
 For now just a test.
 
