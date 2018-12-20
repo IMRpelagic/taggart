@@ -18,7 +18,7 @@ tg_catches_bio <- function(species = "mackerel", cn.standardized = FALSE) {
   }
 
   d <-
-    jsonlite::fromJSON(paste0("http://smartfishsvc.hi.no/api/data/BioSampleCatches/", species[1])) %>%
+    jsonlite::fromJSON(paste0("http://smartfishsvc.hi.no/api/data/BioRawdataCatches/", species[1])) %>%
     dplyr::as_tibble() %>%
     dplyr::select_all(tolower) %>%
     dplyr::mutate(catch_date = lubridate::ymd_hms(catch_date),

@@ -14,7 +14,7 @@ tg_expeditions_bio <- function(species = "mackerel") {
     stop(message("species has to be either 'mackerel' or 'herring'"))
   }
 
-  jsonlite::fromJSON(paste0("http://smartfishsvc.hi.no/api/data/BiosampleExpeditions/", species[1])) %>%
+  jsonlite::fromJSON(paste0("http://smartfishsvc.hi.no/api/data/BioRawdataExpeditions/", species[1])) %>%
     dplyr::as_tibble() %>%
     dplyr::select_all(tolower) %>%
     dplyr::mutate(catch_date = lubridate::ymd_hms(catch_date),
