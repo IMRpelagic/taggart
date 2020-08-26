@@ -2,7 +2,7 @@
 #'
 #' @param species "mackerel" or "herring"
 #' @param cn.standardized Boolean, if FALSE (default) retains variable names as
-#' delivered by the webserver otherwise mri-standaridzed variable names are used
+#' delivered by the webserver otherwise mri-standaridzed variable names are used (not active)
 #'
 #' @return A dataframe
 #' @export
@@ -25,7 +25,9 @@ tg_catches_bio <- function(species = "mackerel", cn.standardized = FALSE) {
                   lon = geo::ir2d(ices_rectangle)$lon,
                   lat = geo::ir2d(ices_rectangle)$lat,
                   species = species[1]) %>%
-    dplyr::rename(maturity = mauturity)
+    # NOTE: Double check this renaming
+    dplyr::rename(assayid = id,
+                  maturity = mauturity)
 
   if(!cn.standardized) {
     return(d)

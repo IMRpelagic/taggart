@@ -10,7 +10,7 @@ tg_catches_bio(species = "mackerel", cn.standardized = FALSE)
 \item{species}{"mackerel" or "herring"}
 
 \item{cn.standardized}{Boolean, if FALSE (default) retains variable names as
-delivered by the webserver otherwise mri-standaridzed variable names are used}
+delivered by the webserver otherwise mri-standaridzed variable names are used (not active)}
 }
 \value{
 A dataframe
