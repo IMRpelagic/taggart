@@ -59,7 +59,7 @@ tg_expeditions_link() %>% glimpse()
 
 ## Plot map of recaptures
 As an example, we can download the catch data using the API and create a plot of the catches by year.
-```{r, echo = TRUE, fig.width = 8, fig.height = 6, message = FALSE}
+```{r, echo = TRUE, fig.width = 8, fig.height = 4, message = FALSE}
 library(ggplot2)
 library(lubridate)
 # Download the data
