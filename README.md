@@ -29,9 +29,8 @@ Atlantic mackerel (Scomber Scombrus)
 
 This project is licensed under the GNU GPLv3 License - see
 [LICENSE](LICENSE.md). The data is licensed under Creative Commons [CC
-BY 4.0](https://creativecommons.org/licenses/by/4.0/) license and can be
-downloaded from [Norwegian Marine Data
-Centre](http://metadata.nmdc.no/metadata-api/landingpage/f9e8b1cff4261cf6575e70e56c4c3b3e).
+BY 4.0](https://creativecommons.org/licenses/by/4.0/) license (see
+[Slotte et al (2021)](#ref1)).
 
 ## Example code
 
@@ -174,7 +173,8 @@ ggplot() +
   coord_quickmap(xlim = xlim, ylim = ylim) +
   facet_wrap( ~year(CatchDate), ncol = 5) +
   theme_bw()+
-  guides(color = guide_colorbar(barheight = 15))
+  guides(color = guide_colorbar(barheight = 15))+
+  scale_color_viridis_c()
 ```
 
 <img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" />
