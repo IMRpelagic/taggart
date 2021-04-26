@@ -1,19 +1,45 @@
 ---
 title: "taggart"
-output: 
-  html_document: 
-    keep_md: yes
+output: github_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  cache = FALSE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%",
+  warning = FALSE
+)
 ```
 
-For now just a test.
+This package is a wrapper for downloading tagging data for mackerel and herring using the API of [Norwegian Marine Data Centre](https://nmdc.no/nmdc). Any use of the data should give reference to [Slotte et al (2021)](#ref1). 
 
-Do:
+The taggart package was originally developed by Einar Hjorleifsson, but Sondre Hølleland has taken over the maintenance and further development of the package. 
+
+## Authors' github accounts
+
+**Einar Hjorleifsson** - [einarhjorleifsson](https://github.com/einarhjorleifsson)
+
+**Sondre Hølleland** - [holleland](https://github.com/holleland)
+
+
+## <a name="ref1"></a>Data reference
+
+Aril Slotte (IMR), Anna Ólafsdóttir (MFRI), Sigurður Þór Jónsson (MFRI), Jan Arge Jacobsen (FAMRI) and Steve Mackinson (SPFA) (2021) PIT-tag time series for studying migrations and use in stock assessment of North East Atlantic mackerel (Scomber Scombrus) http://metadata.nmdc.no/metadata-api/landingpage/f9e8b1cff4261cf6575e70e56c4c3b3e
+
+
+
+## License
+
+This project is licensed under the GNU GPLv3 License - see [LICENSE](LICENSE.md). The data is licensed under Creative Commons [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) license and can be downloaded from [Norwegian Marine Data Centre](http://metadata.nmdc.no/metadata-api/landingpage/f9e8b1cff4261cf6575e70e56c4c3b3e). 
+
+## Example code
+
+To install the package, run the following code:
 ```{r, eval = FALSE}
-devtools::install_github("fishvice/taggart", dependencies = FALSE)
+devtools::install_github("holleland/taggart", dependencies = FALSE)
 ```
 
 Load library:
@@ -23,8 +49,36 @@ library(taggart)
 
 Get the data and have a peek
 ```{r}
-tg_catches()         %>% glimpse()
-tg_catches_bio()     %>% glimpse()
-tg_expeditions()     %>% glimpse()
+tg_catches() %>% glimpse()
+tg_catches_bio() %>% glimpse()
+tg_catches_link() %>% glimpse()
+tg_expeditions() %>% glimpse()
 tg_expeditions_bio() %>% glimpse()
+tg_expeditions_link() %>% glimpse()
 ```
+
+## Plot map of recaptures
+As an example, we can download the catch data using the API and create a plot of the catches by year.
+```{r, echo = TRUE, fig.width = 10, fig.height = 4, message = FALSE}
+library(ggplot2)
+library(lubridate)
+# Download the data
+d <- tg_catches()
+
+# Calculate range of longitudes and latitudes
+xlim = range(d$cLon)
+ylim = range(d$cLat)
+# Get map: 
+m <- ggplot2::map_data("world",
+                       xlim = xlim * c(0.9, 1.1),
+                       ylim = ylim * c(0.9, 1.1))
+# Create plot: 
+ggplot() +
+  geom_polygon(data = m, aes(long, lat, group = group), fill = "grey") +
+  geom_point(data = d, aes(cLon, cLat, col = CatchWeight)) +
+  coord_quickmap(xlim = xlim, ylim = ylim) +
+  facet_wrap( ~year(CatchDate), ncol = 5) +
+  theme_bw()+
+  guides(color = guide_colorbar(barheight = 15))
+```
+

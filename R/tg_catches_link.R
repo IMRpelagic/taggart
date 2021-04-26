@@ -1,7 +1,8 @@
-#' Expeditions biology
+#' BioSamplesCatches
 #'
-
 #' @param species "mackerel" or "herring"
+#' @param cn.standardized Boolean, if FALSE (default) retains variable names as
+#' delivered by the webserver otherwise mri-standaridzed variable names are used (not active)
 #' @param lowercase Boolean, if TRUE, variable names are set to lower case. If FALSE,
 #' names will be consitent with documentation.
 #'
@@ -9,8 +10,10 @@
 #' @export
 #' @importFrom rlang .data
 #'
-#' @examples df <- tg_expeditions_bio()
-tg_expeditions_bio <- function(species = "mackerel", lowercase = FALSE) {
+#' @examples df <- tg_catches_link()
+tg_catches_link <- function(species = "mackerel", cn.standardized = FALSE,
+                          lowercase = FALSE) {
+
 
   if(length(species) > 1) {
     stop(message("Only one species can be specified, 'mackerel' or 'herring'"))
@@ -20,11 +23,15 @@ tg_expeditions_bio <- function(species = "mackerel", lowercase = FALSE) {
     stop(message("species has to be either 'mackerel' or 'herring'"))
   }
 
-  d <- jsonlite::fromJSON(paste0("http://smartfishsvc.hi.no/api/data/BioRawdataExpeditions/", species[1])) %>%
-    dplyr::as_tibble() %>%
-    dplyr::mutate(CatchDate = lubridate::ymd_hms(.data$CatchDate),
-                  species = species[1]) %>%
-    dplyr::rename(Maturity = .data$Mauturity)
+  d <-
+    jsonlite::fromJSON(paste0("http://smartfishsvc.hi.no/api/data/BioSamplesCatches/", species[1])) %>%
+    dplyr::as_tibble()
+
+
+  # if(cn.standardized) {
+  #
+  # }
+
   if(lowercase)
     d <- dplyr::select_all(d, tolower)
   return(d)

@@ -3,11 +3,16 @@
 #' @param species "mackerel" or "herring"
 #' @param cn.standardized Boolean, if FALSE (default) retains variable names as
 #' delivered by the webserver otherwise mri-standaridzed variable names are used
+#' @param lowercase Boolean, if TRUE, variable names are set to lower case. If FALSE,
+#' names will be consitent with documentation.
 #'
 #' @return A dataframe
 #' @export
+#' @importFrom rlang .data
 #'
-tg_catches <- function(species = "mackerel", cn.standardized = FALSE) {
+#' @examples df <- tg_catches()
+tg_catches <- function(species = "mackerel", cn.standardized = FALSE,
+                       lowercase = FALSE) {
 
   if(length(species) > 1) {
     stop(message("Only one species can be specified, 'mackerel' or 'herring'"))
@@ -20,31 +25,31 @@ tg_catches <- function(species = "mackerel", cn.standardized = FALSE) {
   d <-
     jsonlite::fromJSON(paste0("http://smartfishsvc.hi.no/api/data/Catches/", species[1])) %>%
     dplyr::as_tibble() %>%
-    dplyr::select_all(tolower) %>%
-    dplyr::mutate(processing_date = lubridate::ymd_hms(processing_date ),
-                  cLon = geo::ir2d(ices_rectangle)$lon,
-                  cLat = geo::ir2d(ices_rectangle)$lat,
-                  pLon = geo::ir2d(plant_ices_rectangle)$lon,
-                  pLat = geo::ir2d(plant_ices_rectangle)$lat,
-                  nation = dplyr::case_when(nation == "Eire" ~ "IE",
-                                            nation == "Norway" ~ "NO",
-                                            nation == "Sweden" ~ "SE",
-                                            nation == "GB" ~ "UK",
-                                            TRUE ~ nation),
+
+    dplyr::mutate(ProcessingDate = lubridate::ymd_hms(.data$ProcessingDate),
+                  cLon = geo::ir2d(.data$ICES_Rectangle)$lon,
+                  cLat = geo::ir2d(.data$ICES_Rectangle)$lat,
+                  pLon = geo::ir2d(.data$FactoryICES_Rectangle)$lon,
+                  pLat = geo::ir2d(.data$FactoryICES_Rectangle)$lat,
+                  nation = dplyr::case_when(.data$Nation == "Eire" ~ "IE",
+                                            .data$Nation == "Norway" ~ "NO",
+                                            .data$Nation == "Sweden" ~ "SE",
+                                            .data$Nation == "GB" ~ "UK",
+                                            TRUE ~ .data$Nation),
                   species = species[1])
 
-  if(!cn.standardized) {
-    return(d)
-  } else {
-    d %>%
-      dplyr::rename(ices = ices_rectangle,
-                    year = catchdate,
-                    pid = reference_plant,
-                    pname = plant_name,
-                    pices = plant_ices_rectangle,
-                    area = recatch_ices_rectangle,
-                    pdate = processing_date) %>%
-      return()
+  if(cn.standardized) {
+    d <- d %>%
+      dplyr::rename(ices = .data$ICES_Rectangle,
+                    year = .data$CatchDate,
+                    pid = .data$FactoryID,
+                    pname = .data$Factory,
+                    pices = .data$FactoryICES_Rectangle,
+                    area = .data$ICES_Rectangle,
+                    pdate = .data$ProcessingDate)
   }
+  if(lowercase)
+    d <- dplyr::select_all(d, tolower)
+  return(d)
 
 }

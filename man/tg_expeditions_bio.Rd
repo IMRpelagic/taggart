@@ -4,14 +4,20 @@
 \alias{tg_expeditions_bio}
 \title{Expeditions biology}
 \usage{
-tg_expeditions_bio(species = "mackerel")
+tg_expeditions_bio(species = "mackerel", lowercase = FALSE)
 }
 \arguments{
 \item{species}{"mackerel" or "herring"}
+
+\item{lowercase}{Boolean, if TRUE, variable names are set to lower case. If FALSE,
+names will be consitent with documentation.}
 }
 \value{
 A dataframe
 }
 \description{
 Expeditions biology
+}
+\examples{
+df <- tg_expeditions_bio()
 }
