@@ -4,15 +4,9 @@
 \alias{tg_expeditions_link}
 \title{BiosamplesExpeditions}
 \usage{
-tg_expeditions_link(
-  species = "mackerel",
-  cn.standardized = FALSE,
-  lowercase = FALSE
-)
+tg_expeditions_link(cn.standardized = FALSE, lowercase = FALSE)
 }
 \arguments{
-\item{species}{"mackerel" or "herring"}
-
 \item{cn.standardized}{Boolean, if FALSE (default) retains variable names as
 delivered by the webserver otherwise mri-standaridzed variable names are used}
 

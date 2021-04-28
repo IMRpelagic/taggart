@@ -4,11 +4,9 @@
 \alias{tg_expeditions_bio}
 \title{Expeditions biology}
 \usage{
-tg_expeditions_bio(species = "mackerel", lowercase = FALSE)
+tg_expeditions_bio(lowercase = FALSE)
 }
 \arguments{
-\item{species}{"mackerel" or "herring"}
-
 \item{lowercase}{Boolean, if TRUE, variable names are set to lower case. If FALSE,
 names will be consitent with documentation.}
 }

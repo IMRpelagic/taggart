@@ -1,6 +1,5 @@
 #' Catches biology
 #'
-#' @param species "mackerel" or "herring"
 #' @param cn.standardized Boolean, if FALSE (default) retains variable names as
 #' delivered by the webserver otherwise mri-standaridzed variable names are used (not active)
 #' @param lowercase Boolean, if TRUE, variable names are set to lower case. If FALSE,
@@ -11,24 +10,16 @@
 #' @importFrom rlang .data
 #'
 #' @examples df <- tg_catches_bio()
-tg_catches_bio <- function(species = "mackerel", cn.standardized = FALSE,
+tg_catches_bio <- function(cn.standardized = FALSE,
                            lowercase = FALSE) {
 
-  if(length(species) > 1) {
-    stop(message("Only one species can be specified, 'mackerel' or 'herring'"))
-  }
-
-  if(!any(species %in% c("herring", "mackerel"))) {
-    stop(message("species has to be either 'mackerel' or 'herring'"))
-  }
+  species <- "mackerel"
 
   d <-
     jsonlite::fromJSON(paste0("http://smartfishsvc.hi.no/api/data/BioRawdataCatches/", species[1])) %>%
     dplyr::as_tibble() %>%
     dplyr::mutate(CatchDate = lubridate::ymd_hms(.data$CatchDate),
-                  Species = species[1]) %>%
-    # NOTE: Double check this renaming
-    dplyr::rename(Maturity = .data$Mauturity)
+                  Species = species[1])
 
   # if(cn.standardized) {
   #

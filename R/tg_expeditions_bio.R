@@ -1,7 +1,6 @@
 #' Expeditions biology
 #'
 
-#' @param species "mackerel" or "herring"
 #' @param lowercase Boolean, if TRUE, variable names are set to lower case. If FALSE,
 #' names will be consitent with documentation.
 #'
@@ -10,21 +9,13 @@
 #' @importFrom rlang .data
 #'
 #' @examples df <- tg_expeditions_bio()
-tg_expeditions_bio <- function(species = "mackerel", lowercase = FALSE) {
-
-  if(length(species) > 1) {
-    stop(message("Only one species can be specified, 'mackerel' or 'herring'"))
-  }
-
-  if(!any(species %in% c("herring", "mackerel"))) {
-    stop(message("species has to be either 'mackerel' or 'herring'"))
-  }
+tg_expeditions_bio <- function(lowercase = FALSE) {
+  species <- "mackerel"
 
   d <- jsonlite::fromJSON(paste0("http://smartfishsvc.hi.no/api/data/BioRawdataExpeditions/", species[1])) %>%
     dplyr::as_tibble() %>%
     dplyr::mutate(CatchDate = lubridate::ymd_hms(.data$CatchDate),
-                  species = species[1]) %>%
-    dplyr::rename(Maturity = .data$Mauturity)
+                  species = species[1])
   if(lowercase)
     d <- dplyr::select_all(d, tolower)
   return(d)
