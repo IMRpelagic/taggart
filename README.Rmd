@@ -16,6 +16,8 @@ knitr::opts_chunk$set(
 
 This package is a wrapper for downloading tagging data for mackerel using the API of [Norwegian Marine Data Centre](https://nmdc.no/nmdc). Any use of the data on mackerel should give reference to [Slotte et al (2021)](#ref1). The package is planned to be extended with tagging data for Norwegian spring spawning herring, but this is a work in progress.
 
+
+
 The taggart package was originally developed by Einar Hjorleifsson, but Sondre Hølleland has taken over the maintenance and further development of the package. 
 
 ## Authors' github accounts
@@ -34,6 +36,8 @@ Aril Slotte (IMR), Anna Ólafsdóttir (MFRI), Sigurður Þór Jónsson (MFRI), J
 ## License
 
 This project is licensed under the GNU GPLv3 License - see [LICENSE](LICENSE.md). The data is licensed under Creative Commons [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) license (see [Slotte et al (2021)](#ref1)).
+
+Please contact leader of this tagging program, Aril Slotte <aril@hi.no> prior to use of data to secure a full understanding of the data, to avoid any conflicts of interest with ongoing research based on these data and to discuss potential research cooperation.
 
 ## Example code
 
