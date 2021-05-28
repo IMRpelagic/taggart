@@ -65,6 +65,7 @@ tg_outoforder() %>% glimpse()
 ## Plot map of recaptures
 As an example, we can download the catch data using the API and create a plot of the catches by year.
 ```{r, echo = TRUE, fig.width = 8, fig.height = 4, message = FALSE}
+library(dplyr)
 library(ggplot2)
 library(lubridate)
 # Download the data
@@ -73,18 +74,31 @@ d <- tg_catches()
 # Calculate range of longitudes and latitudes
 xlim = range(d$cLon)
 ylim = range(d$cLat)
+xlim = quantile(d$cLon, probs = c(0.01, 0.99))
+ylim = quantile(d$cLat, probs = c(0.01, 0.99))
+
 # Get map: 
 m <- ggplot2::map_data("world",
                        xlim = xlim * c(0.9, 1.1),
                        ylim = ylim * c(0.9, 1.1))
 # Create plot: 
-ggplot() +
+d %>% 
+  mutate(year = year(CatchDate)) %>% 
+  group_by(year, cLon, cLat) %>% 
+  summarise(wgt = sum(CatchWeight) / 1e6,
+            .groups = "drop") %>% 
+  mutate(wgt = case_when(wgt <  2 ~ "00-02",
+                         wgt <  5 ~ "02-05",
+                         wgt < 10 ~ "05-10",
+                         wgt < 25 ~ "10-25",
+                         TRUE ~ "25+")) %>% 
+  ggplot() +
+  theme_void() +
   geom_polygon(data = m, aes(long, lat, group = group), fill = "grey") +
-  geom_point(data = d, aes(cLon, cLat, col = CatchWeight)) +
+  geom_tile(aes(cLon, cLat, fill = wgt)) +
   coord_quickmap(xlim = xlim, ylim = ylim) +
-  facet_wrap( ~year(CatchDate), ncol = 5) +
-  theme_bw()+
+  facet_wrap( ~year, ncol = 5) +
   guides(color = guide_colorbar(barheight = 15))+
-  scale_color_viridis_c()
+  scale_fill_viridis_d(option = "B", direction = -1)
 ```
 

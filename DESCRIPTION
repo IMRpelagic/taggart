@@ -2,7 +2,7 @@ Package: taggart
 Type: Package
 Title: Convenient functions for smartfish API
 Version: 0.2.0
-Author: Einar Hjorleifsson and Sondre H{\o}lleland
+Author: Einar Hjörleifsson and Sondre H{\o}lleland
 Maintainer: Sondre H{\o}lleland <sondre.hoelleland@hi.no>
 Description: Package with wrapper functions for downloading tagging data for 
     mackerel and herring from Norwegian Marine Data Centre.
@@ -10,14 +10,17 @@ License: GPL (>= 3)
 Depends:
     R (>= 3.4)
 Imports:
+    curl,
     dplyr,
     geo,
-    ggplot2,
     jsonlite,
     lubridate,
     magrittr,
-    stringr,
-    rlang
+    rlang,
+    stringr
+Suggest:
+    ggplot2,
+    lubridate
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.1
