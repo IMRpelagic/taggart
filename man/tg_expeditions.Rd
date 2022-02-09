@@ -4,7 +4,11 @@
 \alias{tg_expeditions}
 \title{Expeditions}
 \usage{
-tg_expeditions(cn.standardized = FALSE, lowercase = FALSE)
+tg_expeditions(
+  cn.standardized = FALSE,
+  lowercase = FALSE,
+  species = "mackerel"
+)
 }
 \arguments{
 \item{cn.standardized}{Boolean, if FALSE (default) retains variable names as
@@ -12,6 +16,8 @@ delivered by the webserver otherwise mri-standaridzed variable names are used}
 
 \item{lowercase}{Boolean, if TRUE, variable names are set to lower case. If FALSE,
 names will be consitent with documentation.}
+
+\item{species}{character, either "mackerel" or "herring"}
 }
 \value{
 A dataframe

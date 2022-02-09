@@ -4,6 +4,7 @@
 #' delivered by the webserver otherwise mri-standaridzed variable names are used
 #' @param lowercase Boolean, if TRUE, variable names are set to lower case. If FALSE,
 #' names will be consitent with documentation.
+#' @param species character, either "mackerel" or "herring"
 #'
 #' @return A dataframe
 #' @export
@@ -11,9 +12,9 @@
 #'
 #' @examples df <- tg_expeditions()
 tg_expeditions <- function(cn.standardized = FALSE,
-                           lowercase = FALSE) {
+                           lowercase = FALSE,
+                           species = "mackerel") {
 
-  species <- "mackerel"
   d <-
     jsonlite::fromJSON(paste0("http://smartfishsvc.hi.no/api/data/expeditions/", species[1])) %>%
     dplyr::as_tibble() %>%
