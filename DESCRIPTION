@@ -1,7 +1,7 @@
 Package: taggart
 Type: Package
 Title: Convenient functions for smartfish API
-Version: 0.2.0
+Version: 0.3.0
 Author: Einar Hjorleifsson and Sondre H{\o}lleland
 Maintainer: Sondre H{\o}lleland <sondre.hoelleland@hi.no>
 Description: Package with wrapper functions for downloading tagging data for 
