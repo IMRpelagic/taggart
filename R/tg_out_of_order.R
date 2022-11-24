@@ -10,7 +10,10 @@
 #' @examples tg_outoforder()
 tg_outoforder <- function(lowercase = FALSE) {
   d <-
-    jsonlite::fromJSON("http://smartfishsvc.hi.no/api/data/OutOfOrder/") %>%
+    jsonlite::fromJSON(
+      curl::curl(
+        "http://smartfishsvc.hi.no/api/data/OutOfOrder/")
+      ) %>%
     dplyr::as_tibble()
   if(lowercase)
     d <- dplyr::select_all(d, tolower)

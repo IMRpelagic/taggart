@@ -15,7 +15,10 @@ tg_expeditions_link <- function(cn.standardized = FALSE,
   species <- "mackerel"
 
   d <-
-    jsonlite::fromJSON(paste0("http://smartfishsvc.hi.no/api/data/BiosamplesExpeditions/", species[1])) %>%
+    jsonlite::fromJSON(
+      curl::curl(
+        paste0("http://smartfishsvc.hi.no/api/data/BiosamplesExpeditions/",
+               species[1]))) %>%
     dplyr::as_tibble()
 
   if(cn.standardized) {

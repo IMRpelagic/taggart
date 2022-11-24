@@ -15,7 +15,10 @@ tg_catches <- function(cn.standardized = FALSE,
                        lowercase = FALSE,
                        species = "mackerel") {
   d <-
-    jsonlite::fromJSON(paste0("http://smartfishsvc.hi.no/api/data/Catches/", species[1])) %>%
+    jsonlite::fromJSON(curl::curl(
+      paste0(
+        "http://smartfishsvc.hi.no/api/data/Catches/",
+        species[1]))) %>%
     dplyr::as_tibble() %>%
 
     dplyr::mutate(ProcessingDate = lubridate::ymd_hms(.data$ProcessingDate),

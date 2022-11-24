@@ -16,7 +16,9 @@ tg_expeditions <- function(cn.standardized = FALSE,
                            species = "mackerel") {
 
   d <-
-    jsonlite::fromJSON(paste0("http://smartfishsvc.hi.no/api/data/expeditions/", species[1])) %>%
+    jsonlite::fromJSON(curl::curl(
+      paste0("http://smartfishsvc.hi.no/api/data/expeditions/",
+             species[1]))) %>%
     dplyr::as_tibble() %>%
     dplyr::mutate(#when = lubridate::ymd_hms(when),
                   ReleaseDate      = lubridate::ymd_hms(.data$ReleaseDate),
