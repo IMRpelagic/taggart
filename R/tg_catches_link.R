@@ -11,8 +11,9 @@
 #'
 #' @examples df <- tg_catches_link()
 tg_catches_link <- function(cn.standardized = FALSE,
-                          lowercase = FALSE) {
-  species <- "mackerel"
+                          lowercase = FALSE,
+                          species = "mackerel") {
+  
 
   d <-
     jsonlite::fromJSON(

@@ -9,8 +9,8 @@
 #' @importFrom rlang .data
 #'
 #' @examples df <- tg_expeditions_bio()
-tg_expeditions_bio <- function(lowercase = FALSE) {
-  species <- "mackerel"
+tg_expeditions_bio <- function(lowercase = FALSE,  species = "mackerel") {
+
 
   d <- jsonlite::fromJSON(
     curl::curl(
