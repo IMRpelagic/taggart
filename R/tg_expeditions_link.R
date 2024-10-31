@@ -11,8 +11,8 @@
 #'
 #' @examples tg_expeditions_link()
 tg_expeditions_link <- function(cn.standardized = FALSE,
-                                lowercase = FALSE) {
-  species <- "mackerel"
+                                lowercase = FALSE, species = "mackerel") {
+ 
 
   d <-
     jsonlite::fromJSON(
